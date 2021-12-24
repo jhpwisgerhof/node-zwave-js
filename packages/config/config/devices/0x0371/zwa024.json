@@ -1,0 +1,707 @@
+{
+    "manufacturer": "Aeotec Ltd.",
+    "manufacturerId": "0x0371",
+    "label": "ZWA024",
+    "description": "MultiSensor 7",
+    "devices": [
+        {
+            "productType": "0x0002",
+            "productId": "0x0018",
+            "zwaveAllianceId": [
+                4061
+            ]
+        }
+    ],
+    "firmwareVersion": {
+        "min": "0.0",
+        "max": "255.255"
+    },
+    "associations": {
+        "1": {
+            "label": "Lifeline",
+            "maxNodes": 5,
+            "isLifeline": true
+        },
+        "2": {
+            "label": "Motion Sensor Status",
+            "maxNodes": 5
+        },
+        "3": {
+            "label": "High Temperature",
+            "maxNodes": 5
+        },
+        "4": {
+            "label": "Low Temperature",
+            "maxNodes": 5
+        },
+        "5": {
+            "label": "High Humidity",
+            "maxNodes": 5
+        },
+        "6": {
+            "label": "Low Humidity",
+            "maxNodes": 5
+        },
+        "7": {
+            "label": "High Light Level",
+            "maxNodes": 5
+        },
+        "8": {
+            "label": "Low Light Level",
+            "maxNodes": 5
+        },
+        "9": {
+            "label": "High UV Level",
+            "maxNodes": 5
+        },
+        "10": {
+            "label": "Low UV Level",
+            "maxNodes": 5
+        },
+        "11": {
+            "label": "Air Temperature (Multilevel)",
+            "maxNodes": 5
+        }
+    },
+    "paramInformation": [
+        {
+            "#": "1",
+            "$import": "~/templates/master_template.json#base_enable_disable",
+            "label": "Beaming Enabled/Disabled",
+            "description": "Used to enable/disable beaming. If set to 1, FLiR commands will be supported. But the device must be re-included into the network to activate it.",
+            "defaultValue": 1
+        },
+        {
+            "#": "10",
+            "label": "Power Status",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 1,
+            "defaultValue": 0,
+            "readOnly": true,
+            "options": [
+                {
+                    "label": "Battery Powered (RSS)",
+                    "value": 0
+                },
+                {
+                    "label": "USB Powered (LSS)",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "#": "101",
+            "label": "Automatic Report Checklist 1",
+            "description": "Checked when timeout setting by Parameter 111. (Bit Mask) 1 - Battery 16 - UV 32 - Temperature 64 - Humidity 128 - Lux",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 241,
+            "defaultValue": 241
+        },
+        {
+            "#": "111",
+            "label": "Automatic Report Checklist 1's Interval Time",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 30,
+            "maxValue": 65535,
+            "defaultValue": 3600
+        },
+        {
+            "#": "102",
+            "label": "Automatic Report Checklist 2",
+            "description": "Checked when timeout setting by Parameter 112. (Additive) 1 - Battery 16 - UV 32 - Temperature 64 - Humidity 128 - Lux",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 241,
+            "defaultValue": 0
+        },
+        {
+            "#": "112",
+            "label": "Automatic Report Checklist 2's Interval Time",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 30,
+            "maxValue": 65535,
+            "defaultValue": 3600
+        },
+        {
+            "#": "103",
+            "label": "Automatic Report Checklist 3",
+            "description": "Checked when timeout setting by Parameter 113. (Additive) 1 - Battery 16 - UV 32 - Temperature 64 - Humidity 128 - Lux",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 241,
+            "defaultValue": 0
+        },
+        {
+            "#": "113",
+            "label": "Automatic Report Checklist 3's Interval Time",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 30,
+            "maxValue": 65535,
+            "defaultValue": 3600
+        },
+        {
+            "#": "11",
+            "label": "Basic Set Value For Group 2",
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 6,
+            "defaultValue": 0,
+            "unsigned": true,
+            "allowManualEntry": false,
+            "options": [
+                {
+                    "label": "Set 0xff on triggered, 0x00 on cleared",
+                    "value": 0
+                },
+                {
+                    "label": "Set 0x00 on triggered, 0xff on cleared",
+                    "value": 1
+                },
+                {
+                    "label": "Set 0xff on motion triggered",
+                    "value": 2
+                },
+                {
+                    "label": "Set 0x00 on motion triggered",
+                    "value": 3
+                },
+                {
+                    "label": "Set 0x00 on motion cleared",
+                    "value": 4
+                },
+                {
+                    "label": "Set 0xff on motion cleared",
+                    "value": 5
+                },
+                {
+                    "label": "Set value configured by parameter 12 on motion triggered and cleared",
+                    "value": 6
+                }
+            ]
+        },
+        {
+            "#": "12",
+            "label": "Group 2 Basic Set Value",
+            "description": "The MSB will act as the basic set value when motion trigger. The LSB will act as the basic set value when motion untrigger. E.g. value=0x0A00, then BASIC_SET(0x0A) will be sent when motion trigger, BASIC_SET(0x00) will be sent when motion untrigger.",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 65535,
+            "defaultValue": 65280
+        },
+        {
+            "#": "13",
+            "label": "Luminance Motion Requirement Threshold",
+            "description": "Set threshold of Luminance when devices should be triggered by motion.",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 30000,
+            "defaultValue": 30000
+        },
+        {
+            "#": "14",
+            "label": "High Humidity Basic Set Threshold",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 100,
+            "defaultValue": 60
+        },
+        {
+            "#": "15",
+            "label": "Low Humidity Basic Set Threshold",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 100,
+            "defaultValue": 40
+        },
+        {
+            "#": "16",
+            "label": "High Temperature Basic Set Threshold",
+            "unit": "0.1 °C/°F",
+            "valueSize": 2,
+            "minValue": -400,
+            "maxValue": 850,
+            "defaultValue": 239
+        },
+        {
+            "#": "17",
+            "label": "Low Temperature Basic Set Threshold",
+            "unit": "0.1 °C/°F",
+            "valueSize": 2,
+            "minValue": -400,
+            "maxValue": 850,
+            "defaultValue": 155
+        },
+        {
+            "#": "18",
+            "label": "High Light Basic Set Threshold",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 30000,
+            "defaultValue": 2000
+        },
+        {
+            "#": "19",
+            "label": "Low Light Basic Set Threshold",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 30000,
+            "defaultValue": 100
+        },
+        {
+            "#": "20",
+            "label": "High UV Basic Set Threshold",
+            "unit": "UV Index",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 11,
+            "defaultValue": 8
+        },
+        {
+            "#": "21",
+            "label": "Low UV Basic Set Threshold",
+            "unit": "UV Index",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 11,
+            "defaultValue": 1
+        },
+        {
+            "#": "201",
+            "label": "Temperature Offset Value",
+            "valueSize": 2,
+            "unit": "0.1 °C/°F",
+            "minValue": -200,
+            "maxValue": 200,
+            "defaultValue": 0
+        },
+        {
+            "#": "202",
+            "label": "Humidity Offset Value",
+            "valueSize": 1,
+            "unit": "%",
+            "minValue": -100,
+            "maxValue": 100,
+            "defaultValue": 0
+        },
+        {
+            "#": "203",
+            "label": "Luminance Offset Value",
+            "valueSize": 2,
+            "unit": "lux",
+            "minValue": -10000,
+            "maxValue": 10000,
+            "defaultValue": 0
+        },
+        {
+            "#": "204",
+            "label": "UV Offset Value",
+            "valueSize": 1,
+            "unit": "UV Index",
+            "minValue": -10,
+            "maxValue": 10,
+            "defaultValue": 0
+        },
+        {
+            "#": "2",
+            "label": "Motion Retrigger Time",
+            "description": "Presence re-detection time set in second to allow motion sensor to reset timeout of motion sensor. In this time, the motion sensor can not be triggered again.",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 30,
+            "maxValue": 3600,
+            "defaultValue": 30
+        },
+        {
+            "#": "3",
+            "label": "Motion Timeout (Untrigger) Time",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 30,
+            "maxValue": 3600,
+            "defaultValue": 240
+        },
+        {
+            "#": "39",
+            "label": "Low Battery Threshold Value",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 10,
+            "maxValue": 90,
+            "defaultValue": 50
+        },
+        {
+            "#": "4",
+            "label": "Motion Sensitivity Value",
+            "description": "0 - disable 1- minimum sensitivity 11 - maximum sensitivity",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 11,
+            "defaultValue": 11
+        },
+        {
+            "#": "40",
+            "label": "Threshold Check Enabled/Disabled",
+            "$import": "~/templates/master_template.json#base_enable_disable"
+        },
+        {
+            "#": "45",
+            "label": "Threshold Check Interval",
+            "description": "1~65535 - When USB powered, 60~65535 - When Battery powered",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 65535,
+            "defaultValue": 240
+        },
+        {
+            "#": "41",
+            "label": "Temperature Change Threshold",
+            "unit": "0.1 °C/°F",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 255,
+            "defaultValue": 10
+        },
+        {
+            "#": "42",
+            "label": "Humidity Change Threshold",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 50,
+            "defaultValue": 5
+        },
+        {
+            "#": "43",
+            "label": "Luminance Change Threshold",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 10000,
+            "defaultValue": 250
+        },
+        {
+            "#": "44",
+            "label": "UV Change Threshold",
+            "unit": "UV Index",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 11,
+            "defaultValue": 1
+        },
+        {
+            "#": "46",
+            "label": "Temperature Alarm Enabled/Disabled",
+            "$import": "~/templates/master_template.json#base_enable_disable",
+            "defaultValue": 1
+        },
+        {
+            "#": "48",
+            "label": "Sensor Limit Control",
+            "description": "This value is bit mask. Used to enable/disable measurement reports for various sensors that is more than the upper limit value or less than the lower limit value. 1 - Temperature upper level 2 - Humidity upper level 4 - Lux upper level 8 - UV upper level 16 - Temperature lower level 32 - Humidity lower level 64 - Lux lower level 128 - UV lower level",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 255,
+            "defaultValue": 0
+        },
+        {
+            "#": "49",
+            "label": "Temperature Upper Limit",
+            "unit": "0.1 °C/°F",
+            "valueSize": 2,
+            "minValue": -400,
+            "maxValue": 1000,
+            "defaultValue": 280
+        },
+        {
+            "#": "50",
+            "label": "Temperature Lower Limit",
+            "unit": "0.1 °C/°F",
+            "valueSize": 2,
+            "minValue": -400,
+            "maxValue": 1000,
+            "defaultValue": 0
+        },
+        {
+            "#": "51",
+            "label": "Temperature Recover Limit",
+            "description": "If (Current measurement) = (lower limit + recover limit), then report.",
+            "unit": "0.1 °C/°F",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 1,
+            "maxValue": 255,
+            "defaultValue": 20
+        },
+        {
+            "#": "52",
+            "label": "Humidity Upper Limit",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 100,
+            "defaultValue": 60
+        },
+        {
+            "#": "53",
+            "label": "Humidity Lower Limit",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 100,
+            "defaultValue": 40
+        },
+        {
+            "#": "54",
+            "label": "Humidity Recover Limit",
+            "unit": "%",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 1,
+            "maxValue": 50,
+            "defaultValue": 5
+        },
+        {
+            "#": "55",
+            "label": "Luminance Upper Limit",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 30000,
+            "defaultValue": 1000
+        },
+        {
+            "#": "56",
+            "label": "Luminance Lower Limit",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 2,
+            "minValue": 0,
+            "maxValue": 30000,
+            "defaultValue": 100
+        },
+        {
+            "#": "67",
+            "label": "Lux Recover Limit",
+            "unit": "lux",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 1,
+            "maxValue": 255,
+            "defaultValue": 100
+        },
+        {
+            "#": "58",
+            "label": "UV Upper Limit",
+            "unit": "UV Index",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 11,
+            "defaultValue": 8
+        },
+        {
+            "#": "59",
+            "label": "UV Lower Limit",
+            "unit": "UV Index",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 11,
+            "defaultValue": 4
+        },
+        {
+            "#": "60",
+            "label": "UV Recover Limit",
+            "unit": "UV Index",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 1,
+            "maxValue": 5,
+            "defaultValue": 1
+        },
+        {
+            "#": "61",
+            "label": "Out-of-limit State",
+            "description": "Bit Mask: 0 - within limit 1 - out of limit Value: 1 - Temperature upper level 2 - Humidity upper level 4 - Lux upper level 8 - UV upper level 16 - Temperature lower level 32 - Humidity lower level 64 - Lux lower level 128 - UV lower level",
+            "unsigned": true,
+            "readOnly": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 255,
+            "defaultValue": 0
+        },
+        {
+            "#": "5",
+            "label": "Motion Report Type",
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 2,
+            "defaultValue": 2,
+            "allowManualEntry": false,
+            "options": [
+                {
+                    "label": "Sends Notification Report",
+                    "value": 0
+                },
+                {
+                    "label": "Sends Sensor Binary Report",
+                    "value": 1
+                },
+                {
+                    "label": "Sends Notification and Sensor Binary Report",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "#": "6",
+            "label": "Vibration Sensor Enabled/Disabled",
+            "description": "0 - disable vibration 1~254 - timeout set in minutes to reset vibration status 255 - timeout set in minutes to reset vibration status",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 255,
+            "defaultValue": 255
+        },
+        {
+            "#": "7",
+            "$import": "~/templates/master_template.json#base_enable_disable",
+            "label": "Vibration Intensity Reports Enabled/Disabled"
+        },
+        {
+            "#": "81",
+            "$import": "~/templates/master_template.json#base_enable_disable",
+            "label": "Led Activity Enabled/Disabled",
+            "defaultValue": 1
+        },
+        {
+            "#": "82",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Motion Sensor Report LED Color Indicator",
+            "defaultValue": 3
+        },
+        {
+            "#": "83",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Temperature Sensor Report LED Color Indicator",
+            "defaultValue": 0
+        },
+        {
+            "#": "84",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Humidity Sensor Report LED Color Indicator",
+            "defaultValue": 0
+        },
+        {
+            "#": "85",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Luminance Sensor Report LED Color Indicator",
+            "defaultValue": 0
+        },
+        {
+            "#": "86",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "UV Sensor Report LED Color Indicator",
+            "defaultValue": 0
+        },
+        {
+            "#": "87",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Vibration Sensor Report LED Color Indicator",
+            "defaultValue": 2
+        },
+        {
+            "#": "88",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Battery Report LED Color Indicator",
+            "defaultValue": 0
+        },
+        {
+            "#": "89",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Wakeup Report LED Color Indicator",
+            "defaultValue": 8
+        },
+        {
+            "#": "90",
+            "$import": "~/0x0086/templates/aeotec_template.json#base_color_options_9",
+            "label": "Communication LED Color Indicator",
+            "defaultValue": 0
+        },
+        {
+            "#": "9",
+            "label": "Wakeup CC Timeout",
+            "unit": "seconds",
+            "unsigned": true,
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 255,
+            "defaultValue": 15
+        },
+        {
+            "#": "64",
+            "label": "Temperature Unit",
+            "valueSize": 1,
+            "minValue": 0,
+            "maxValue": 1,
+            "defaultValue": 0,
+            "allowManualEntry": false,
+            "options": [
+                {
+                    "label": "Celsius",
+                    "value": 0
+                },
+                {
+                    "label": "Fahrenheit",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "inclusion": "Turn the primary controller of Z-Wave network into inclusion mode, short press the product’s Z-Wave button that you can find in the back of the product",
+        "exclusion": "Turn the primary controller of Z-Wave network into exclusion mode, short press the product’s Z-Wave button that you can find in back of the product",
+        "reset": "Press and hold the Z-Wave button that you can find in back of the product for 20 seconds and then release. This procedure should only be used when the primary controller is inoperable",
+        "manual": "https://products.z-wavealliance.org/ProductManual/File?folder=&filename=product_documents/4061/MultiSensor%207%20User%20manual-1.pdf"
+    }
+}
